@@ -3,6 +3,7 @@ import Gun, {GunCallbackUserCreate} from 'gun';
 import 'gun/sea';
 import 'gun/axe';
 import {GunCallbackUserAuth} from "gun/types/sea/GunCallbackUserAuth";
+import {environment} from "../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class GunService {
   user;
 
   constructor() {
-    this.gun = Gun('https://test.eeriefoods.de/gun');
+    this.gun = Gun(environment.DB_URL);
     this.user = this.gun.user().recall({ sessionStorage: true });
   }
 
