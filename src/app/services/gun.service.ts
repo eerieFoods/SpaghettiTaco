@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import Gun, {GunCallbackUserCreate} from 'gun';
+import Gun from 'gun';
 import 'gun/sea';
 import 'gun/axe';
-import {GunCallbackUserAuth} from "gun/types/sea/GunCallbackUserAuth";
 import {environment} from "../../environments/environment.development";
 import {Router} from "@angular/router";
 
@@ -34,14 +33,13 @@ export class GunService {
   }
 
   signIn(username: string, password: string) {
-    this.user.auth(username, password, (ack: GunCallbackUserAuth) => {
+    this.user.auth(username, password, () => {
       this.router.navigate(['/dashboard']).then(r => console.log(r));
     });
   }
 
   isLoggedIn() {
-    console.log("Id: " + this.user.id);
-    return this.user.id != undefined;
+    return this.user.is;
   }
 
   getFromUser(key: string) {
