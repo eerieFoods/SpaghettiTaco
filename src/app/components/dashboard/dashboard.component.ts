@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {GunService} from "../../services/gun.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+
+  constructor(private gunService: GunService) {
+  }
+
+  logout() {
+    this.gunService.signOut();
+  }
 
 }

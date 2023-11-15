@@ -15,9 +15,7 @@ export class GunService {
   constructor(private router: Router) {
     this.gun = Gun(environment.DB_URL);
     this.user = this.gun.user().recall({ sessionStorage: true });
-    this.gun.on('auth', (x) => {
-      console.log(x);
-      console.log("Logged In?: " + this.isLoggedIn())
+    this.gun.on('auth', () => {
       this.router.navigate(['/dashboard']).then(r => console.log(r));
     });
   }
@@ -48,6 +46,7 @@ export class GunService {
 
   signOut() {
     this.user.leave();
+    this.router.navigate(['/']);
   }
 
 }
