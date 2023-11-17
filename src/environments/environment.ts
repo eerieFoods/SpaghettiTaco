@@ -1,3 +1,3 @@
 export const environment = {
-    DB_URL: "https://test.eeriefoods.de/gun"
+    DB_URL: "https://gun.eeriefoods.de/gun"
 };
