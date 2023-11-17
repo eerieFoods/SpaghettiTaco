@@ -1,0 +1,9 @@
+  <div class="login-container">
+    <h2>Login</h2>
+    <form [formGroup]="authForm">
+      <input type="text"placeholder="Username" formControlName="username">
+      <input type="password"placeholder="Password" formControlName="password">
+    <input type="button" value="Log In" (click)="logIn()">
+    <input type="button" value="Sign Up" (click)="signUp()">
+    </form>
+  </div>

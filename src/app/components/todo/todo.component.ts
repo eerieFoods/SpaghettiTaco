@@ -3,11 +3,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {GunService} from "../../services/gun.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
 })
-export class LoginComponent {
+export class TodoComponent {
 
   showLogin: boolean = true;
 
