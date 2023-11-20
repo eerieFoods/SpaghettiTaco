@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Gun from 'gun';
+import 'gun/lib/open.js'
 import 'gun/sea';
 import 'gun/axe';
 import {environment} from "../../environments/environment.development";
@@ -11,13 +12,19 @@ import {Router} from "@angular/router";
 export class GunService {
   gun;
   user;
+  alias = "";
+
+  NODE_NAME = "spaghetti-taco";
 
   constructor(private router: Router) {
     this.gun = Gun(environment.DB_URL);
     this.user = this.gun.user().recall({ sessionStorage: true });
     this.gun.on('auth', () => {
-      this.router.navigate(['/dashboard']).then(r => console.log(r));
+      this.router.navigate(['/dashboard']);
     });
+
+    this.user.get('alias').on((v: any) => this.alias = v)
+
   }
 
   createUser(username: string, password: string) {
