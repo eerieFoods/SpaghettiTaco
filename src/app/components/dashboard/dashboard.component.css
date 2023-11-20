@@ -1,0 +1,5 @@
+/* Align user on the right side */
+nb-user {
+  margin-left: auto;
+  margin-right: 2%;
+}

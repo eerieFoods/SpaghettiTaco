@@ -1,0 +1,7 @@
+nb-menu {
+  /**
+    * Assuming here the footer (xc-footer) is directly below nb-menu
+    * Push the footer a good distance below the menu.
+    */
+  padding-bottom: 3.5rem;
+}
