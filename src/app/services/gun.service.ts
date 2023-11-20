@@ -22,17 +22,15 @@ export class GunService {
 
   createUser(username: string, password: string) {
     this.user.create(username, password, (ack: any) => {
-      if (ack.err) {
-        alert(ack.err);
-      } else {
-        this.signIn(username, password);
-      }
+      if (ack.err) alert(ack.err)
+      else this.signIn(username, password);
     });
   }
 
   signIn(username: string, password: string) {
-    this.user.auth(username, password, () => {
-      this.router.navigate(['/dashboard']).then(r => console.log(r));
+    this.user.auth(username, password, (ack: any) => {
+      if (ack.err) alert(ack.err);
+      else this.router.navigate(['/dashboard']).then(r => console.log(r));
     });
   }
 

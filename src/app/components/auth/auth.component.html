@@ -1,9 +1,39 @@
-  <div class="login-container">
-    <h2>Login</h2>
-    <form [formGroup]="authForm">
-      <input type="text"placeholder="Username" formControlName="username">
-      <input type="password"placeholder="Password" formControlName="password">
-    <input type="button" value="Log In" (click)="logIn()">
-    <input type="button" value="Sign Up" (click)="signUp()">
-    </form>
-  </div>
+<nb-layout>
+
+  <nb-layout-column>
+    <nb-card accent="primary">
+      <nb-card-header>Log In or Sign Up</nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="authForm">
+
+          <nb-form-field>
+            <input type="text" nbInput placeholder="Username" status="primary" shape="semi-round" formControlName="username">
+          </nb-form-field>
+
+           <nb-form-field>
+             <input [type]="getInputType()" nbInput placeholder="Password" status="primary" shape="semi-round" formControlName="password">
+             <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
+               <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+                        pack="eva"
+                        [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+               </nb-icon>
+             </button>
+           </nb-form-field>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+          <button nbButton status="primary" hero (click)="logIn()">Log In</button>
+          <button nbButton status="primary" hero (click)="signUp()">Sign In</button>
+      </nb-card-footer>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
+<!--  <div class="login-container">-->
+<!--    <h2>Login</h2>-->
+<!--    <form [formGroup]="authForm">-->
+<!--      <input type="text"placeholder="Username" formControlName="username">-->
+<!--      <input type="password"placeholder="Password" formControlName="password">-->
+<!--    <input type="button" value="Log In" (click)="logIn()">-->
+<!--    <input type="button" value="Sign Up" (click)="signUp()">-->
+<!--    </form>-->
+<!--</div>-->

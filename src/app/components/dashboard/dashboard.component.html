@@ -1,2 +1,31 @@
-<p>dashboard works!</p>
-<button (click)="logout()">Logout</button>
+<!--<p>dashboard works!</p>-->
+<!--<button (click)="logout()">Logout</button>-->
+<nb-layout>
+  <nb-layout-header fixed>
+    <button (click)="toggleSidebar()" ghost nbButton status="primary">
+      <nb-icon icon="menu-outline"></nb-icon>
+    </button>
+    <span style="width: 2%"></span>
+    <h3>Spaghetti-Taco</h3>
+
+    <nb-user [name]="username"
+             [nbContextMenu]="userItems"
+             picture="https://api.dicebear.com/7.x/pixel-art/svg?seed={{username}}&backgroundColor=b6e3f4,c0aede,d1d4f9"
+             nbContextMenuTag="userMenu"
+             size="large">
+    </nb-user>
+
+  </nb-layout-header>
+
+  <nb-sidebar tag="left">
+    <app-chat-list></app-chat-list>
+  </nb-sidebar>
+
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-body>
+        <app-chat-box></app-chat-box>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>

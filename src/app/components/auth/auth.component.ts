@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {GunService} from "../../services/gun.service";
 
@@ -13,6 +13,9 @@ export class AuthComponent {
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
+
+  showPassword = false;
+
 
   constructor(private gunService: GunService) {
   }
@@ -35,6 +38,17 @@ export class AuthComponent {
       return false;
     }
     return true;
+  }
+
+  getInputType() {
+    if (this.showPassword) {
+      return 'text';
+    }
+    return 'password';
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 
 }
