@@ -19,15 +19,18 @@ export class ChatService {
     this.gunService.gun.get(this.gunService.NODE_NAME).get(chatroom).get(index).put(message);
   }
 
-  getMessages(chatroom: string): Message[] {
-    var messages: Message[] = [];
-
-    this.gunService.gun.get(this.gunService.NODE_NAME).get(chatroom).open((data: any) => {
-      Object.entries(data).forEach((entry: any) => {
-        messages.push(entry[1]);
-      });
-    });
-    return messages;
-  }
+  // getMessages(chatroom: string): Message[] {
+  //   var messages: Message[] = [];
+  //
+  //   this.gunService.gun.get(this.gunService.NODE_NAME).get(chatroom).open((data: any) => {
+  //     Object.entries(data).forEach((entry: any) => {
+  //       SEA.decrypt(entry[1], environment.HOLY_GRAIL).then((decrypted: any) => {
+  //       messages.push(entry[1]);
+  //       console.log(entry[1]);
+  //       });
+  //     });
+  //   });
+  //   return messages;
+  // }
 
 }

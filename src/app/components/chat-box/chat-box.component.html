@@ -1,12 +1,16 @@
-<nb-chat size="giant">
-          <nb-chat-message *ngFor="let msg of messages"
-                           [type]="msg.type"
-                           [message]="msg.text"
-                           [reply]="msg.sender == alias"
-                           [sender]="alias"
-                           [date]="timestampToDate(msg.timestamp)"
-                           avatar="https://api.dicebear.com/7.x/pixel-art/svg?seed={{alias}}">
-          </nb-chat-message>
-          <nb-chat-form (send)="sendMessage($event)" [dropFiles]="false">
-          </nb-chat-form>
-  </nb-chat>
+<nb-chat *ngIf="chatroom != null; else noChat" size="giant" title="{{chatroom | chatname}}">
+  <nb-chat-message *ngFor="let msg of messages"
+                   [date]="timestampToDate(msg.timestamp)"
+                   [message]="msg.text"
+                   [reply]="msg.sender == alias"
+                   [sender]="msg.sender"
+                   [type]="msg.type"
+                   avatar="https://api.dicebear.com/7.x/pixel-art/svg?seed={{msg.sender}}">
+  </nb-chat-message>
+  <nb-chat-form (send)="sendMessage($event)" [dropFiles]="false">
+  </nb-chat-form>
+</nb-chat>
+
+<ng-template #noChat>
+  <p>Please select a Chat from the left side</p>
+</ng-template>

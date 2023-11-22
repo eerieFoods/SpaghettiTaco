@@ -21,6 +21,9 @@ export class DashboardComponent implements OnInit {
               private themeService: NbThemeService,
               private sidebarService: NbSidebarService,
               private menuService: NbMenuService) {
+    // ☀️
+    // 🌑
+
   }
 
   ngOnInit() {
@@ -38,10 +41,15 @@ export class DashboardComponent implements OnInit {
       .subscribe(title => {
         if (title == "logout") {
           this.logout();
-        } else if (title == "change theme") {
+        } else if (title.includes("change theme")) {
           this.toggleTheme();
         }
       });
+
+    this.themeService.onThemeChange().subscribe((theme) => {
+      this.userItems[0] = { title: (theme.name == "default" ? "☀️" : "🌑") + " Change Theme" };
+    });
+
   }
 
   logout() {
