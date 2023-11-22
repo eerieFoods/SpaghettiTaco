@@ -20,6 +20,7 @@ import { ChatListComponent } from './components/chat-list/chat-list.component';
 import {NbEvaIconsModule} from "@nebular/eva-icons";
 import { ChatBoxComponent } from './components/chat-box/chat-box.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ChatnamePipe } from './pipes/chatname.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AuthComponent,
     DashboardComponent,
     ChatListComponent,
-    ChatBoxComponent
+    ChatBoxComponent,
+    ChatnamePipe,
   ],
   imports: [
     BrowserModule,

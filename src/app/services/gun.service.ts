@@ -20,7 +20,7 @@ export class GunService {
     this.gun = Gun(environment.DB_URL);
     this.user = this.gun.user().recall({ sessionStorage: true });
     this.gun.on('auth', () => {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard/none']);
     });
 
     this.user.get('alias').on((v: any) => this.alias = v)
@@ -37,7 +37,7 @@ export class GunService {
   signIn(username: string, password: string) {
     this.user.auth(username, password, (ack: any) => {
       if (ack.err) alert(ack.err);
-      else this.router.navigate(['/dashboard']).then(r => console.log(r));
+      else this.router.navigate(['/dashboard/none']);
     });
   }
 

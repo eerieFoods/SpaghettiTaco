@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {ChatService} from "../../services/chat.service";
 import {Message} from "../../models/message.model";
 import {GunService} from "../../services/gun.service";
-import {messages} from "./messages";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-chat-box',
@@ -14,9 +14,35 @@ export class ChatBoxComponent {
   messages: Message[] = [];
   alias: string = "";
 
-  constructor(protected chatService: ChatService, private gunService: GunService) {
-    this.messages = this.chatService.getMessages("room1");
+  chatroom: string | null;
+
+  constructor(protected chatService: ChatService, private gunService: GunService, private route: ActivatedRoute) {
+    // this.messages = this.chatService.getMessages("room1");
     this.gunService.user.get('alias').on((v: any) => this.alias = v);
+
+    this.chatroom = this.route.snapshot.paramMap.get("id") == "none" ? null : this.route.snapshot.paramMap.get("id");
+
+    // if (this.chatroom) {
+    //   this.gunService.gun.get(this.gunService.NODE_NAME).get(this.chatroom).open((data: any) => {
+    //     this.messages = [];
+    //     Object.entries(data).forEach((entry: any) => {
+    //       this.messages.push(entry[1])
+    //     });
+    //   });
+    // }
+
+    this.route.paramMap.subscribe(params => {
+      this.chatroom = params.get("id") == "none" ? null : params.get("id");
+      if (this.chatroom) {
+        this.gunService.gun.get(this.gunService.NODE_NAME).get(this.chatroom).open((data: any) => {
+          this.messages = [];
+          Object.entries(data).forEach((entry: any) => {
+            this.messages.push(entry[1])
+          });
+        });
+      }
+    })
+
   }
 
   timestampToDate(timestamp: number) {
@@ -24,6 +50,9 @@ export class ChatBoxComponent {
   }
 
   sendMessage(event: any) {
+    if (!this.chatroom) {
+      return;
+    }
     const content = event.message;
 
     const message: Message = {
@@ -33,30 +62,13 @@ export class ChatBoxComponent {
       type: "text"
     }
 
-    this.chatService.saveMessage("room1", message);
+    this.chatService.saveMessage(this.chatroom, message);
+  }
 
-    // const files = !event.files ? [] : event.files.map((file: { src: any; type: any; }) => {
-    //   return {
-    //     url: file.src,
-    //     type: file.type,
-    //     icon: 'nb-compose',
-    //   };
-    // });
-    //
-    // this.messages.push({
-    //   text: event.message,
-    //   date: new Date(),
-    //   reply: true,
-    //   type: files.length ? 'file' : 'text',
-    //   files: files,
-    //   user: {
-    //     name: 'Jonh Doe',
-    //     avatar: 'https://i.gifer.com/no.gif',
-    //   },
-    // });
-    // const botReply = this.chatService.reply(event.message);
-    // if (botReply) {
-    //   setTimeout(() => { this.messages.push(botReply); }, 500);
-    // }
+  clearChat() {
+    if (!this.chatroom) {
+      return;
+    }
+    this.chatService.clearChatroom(this.chatroom);
   }
 }
